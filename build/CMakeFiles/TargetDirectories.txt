@@ -1,0 +1,3 @@
+/home/jackj/Practice/build/CMakeFiles/main.dir
+/home/jackj/Practice/build/CMakeFiles/edit_cache.dir
+/home/jackj/Practice/build/CMakeFiles/rebuild_cache.dir
