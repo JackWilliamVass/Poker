@@ -31,10 +31,23 @@ void sorting(int* p, const int col, const int row)
 {
     //rank is stored in the 2nd position, first pointer points to [0] 2nd points to the last values rank
     int *start {p+1}, *end{(p+(col*(row-1))+1)};
-    int ending {5}, i {0};
-    while (i < ending)
+    // this replaced col*(row-1)+1, not sure why this works
+    int ending = col*(row);
+    // the value being sorted is stored every 2 values
+    // then i-1's value and i are shifted to j-1's and j's space if it matches up properly
+    for (int i = 1; i < ending; i=i+2)
     {
+        int vali = *(p+i);
+        for (int j = i; j < ending; j=j+2)
+        {
+            if (*(p+i) > *(p+j))
+            {
+                int temp = *(p+i);
+                *(p+i) = *(p+j);
+                *(p+j) = temp;
+            }
 
+        }
     }
 }
 void display()
@@ -71,9 +84,18 @@ int main (int argc, char *argv[])
     int col = 2;
     int row = 5;
     int cards[row][col] {};
+
     int *p = cards[0];
     cardGenerator(p, col, row);
+    std::cout << "Before sorting: " << '\n';
+    std::cout << cards[0][0] << " " << cards[0][1] << '\n';
+    std::cout << cards[1][0] << " " << cards[1][1] << '\n';
+    std::cout << cards[2][0] << " " << cards[2][1] << '\n';
+    std::cout << cards[3][0] << " " << cards[3][1] << '\n';
+    std::cout << cards[4][0] << " " << cards[4][1] << '\n';
 
+    sorting(p, col, row);
+    std::cout << '\n' << "After sorting: " << '\n';
     std::cout << cards[0][0] << " " << cards[0][1] << '\n';
     std::cout << cards[1][0] << " " << cards[1][1] << '\n';
     std::cout << cards[2][0] << " " << cards[2][1] << '\n';
