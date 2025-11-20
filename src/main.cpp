@@ -29,8 +29,6 @@ bool highCard     (Card cards[5])   {return false;}
 //Randomly generate cards, could be duplicates
 void sorting(int* p, const int col, const int row)
 {
-    //rank is stored in the 2nd position, first pointer points to [0] 2nd points to the last values rank
-    int *start {p+1}, *end{(p+(col*(row-1))+1)};
     // this replaced col*(row-1)+1, not sure why this works
     int ending = col*(row);
     // the value being sorted is stored every 2 values
@@ -40,7 +38,7 @@ void sorting(int* p, const int col, const int row)
         int vali = *(p+i);
         for (int j = i; j < ending; j=j+2)
         {
-            if (*(p+i) > *(p+j))
+            if (*(p+i) < *(p+j))
             {
                 int temp = *(p+i);
                 *(p+i) = *(p+j);
@@ -50,17 +48,25 @@ void sorting(int* p, const int col, const int row)
         }
     }
 }
-void display()
+void display(int* p, const int col, const int row)
 {
-    //It's easier to work with integers than strings! Especially for sorting.
-    //std::string suitArr[4] {"Hearts","Diamonds","Clubs","Spades"};
-    //std::string cardArr[14] {"King","Queen","Jack","Ace","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten"};
+    // wat
+    std::string suitArr[4] {"Hearts","Diamonds","Clubs","Spades"};
+    std::string cardArr[14] {"Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"};
+
+    int *start {p+1}, *end{(p+(col*(row-1))+1)};
+
+    for (int i = 0; i < row; i++)
+    {
+        std::cout << cardArr[*(p+(1+(i*col)))] << " of " << suitArr[*(p+(i*col))] << std::endl;
+    }
+
 }
 void cardGenerator(int* p, const int col, const int row)
 {
     std::srand(std::time(0));
 
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < row; i++)
     {
         int randSuit = (std::rand() % 4);
         int randRank = (std::rand() % 13);
@@ -87,18 +93,10 @@ int main (int argc, char *argv[])
 
     int *p = cards[0];
     cardGenerator(p, col, row);
-    std::cout << "Before sorting: " << '\n';
-    std::cout << cards[0][0] << " " << cards[0][1] << '\n';
-    std::cout << cards[1][0] << " " << cards[1][1] << '\n';
-    std::cout << cards[2][0] << " " << cards[2][1] << '\n';
-    std::cout << cards[3][0] << " " << cards[3][1] << '\n';
-    std::cout << cards[4][0] << " " << cards[4][1] << '\n';
+    std::cout << "Before sorting: " << '\n' << '\n';
+    display(p, col, row);
 
+    std::cout << "After sorting: " << '\n' << '\n';
     sorting(p, col, row);
-    std::cout << '\n' << "After sorting: " << '\n';
-    std::cout << cards[0][0] << " " << cards[0][1] << '\n';
-    std::cout << cards[1][0] << " " << cards[1][1] << '\n';
-    std::cout << cards[2][0] << " " << cards[2][1] << '\n';
-    std::cout << cards[3][0] << " " << cards[3][1] << '\n';
-    std::cout << cards[4][0] << " " << cards[4][1] << '\n';
+    display(p, col, row);
 }
