@@ -35,14 +35,20 @@ void sorting(int* p, const int col, const int row)
     // then i-1's value and i are shifted to j-1's and j's space if it matches up properly
     for (int i = 1; i < ending; i=i+2)
     {
-        int vali = *(p+i);
         for (int j = i; j < ending; j=j+2)
         {
             if (*(p+i) < *(p+j))
             {
+                //temp value for suit and rank
                 int temp = *(p+i);
+                int temp2 = *(p+i-1);
+                //swapping values
                 *(p+i) = *(p+j);
                 *(p+j) = temp;
+                //swapping ranks
+                *(p+i-1) = *(p+j-1);
+                *(p+j-1) = temp2;
+                // another unnecessary comment, heheha
             }
 
         }
@@ -87,8 +93,8 @@ int main (int argc, char *argv[])
 
 
 
-    int col = 2;
-    int row = 5;
+    const int col = 2;
+    const int row = 5;
     int cards[row][col] {};
 
     int *p = cards[0];
